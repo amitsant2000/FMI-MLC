@@ -65,13 +65,13 @@ class fmi_gym(gym.Env):
             
         self.action_space = spaces.Box(low=self.parameter['action_min'],
                                        high=self.parameter['action_max'],
-                                       shape=(1, len(self.parameter['action_names'])),
+                                       shape=(len(self.parameter['action_names']),),
                                        dtype=self.precision)
         self.action_space.np_random.seed(self.seed)
 
         self.observation_space = spaces.Box(low=self.parameter['observation_min'],
                                             high=self.parameter['observation_max'],
-                                            shape=(1, len(self.parameter['observation_names'])),
+                                            shape=(len(self.parameter['observation_names']),),
                                             dtype=self.precision)
         self.observation_space.np_random.seed(self.seed)
         
