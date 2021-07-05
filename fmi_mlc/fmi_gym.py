@@ -78,7 +78,7 @@ class fmi_gym(gym.Env):
         if self.parameter['reset_on_init']:
             self.state = self.reset()
         else:
-            self.state = np.array([[np.nan]*len(self.parameter['observation_names'])])        
+            self.state = np.array([[np.nan]*len(self.parameter['observation_names'])]).flatten()      
         
     def setup_pyfmi(self, pyfmi):
         '''
@@ -204,6 +204,7 @@ class fmi_gym(gym.Env):
             else:
                 self.data = pd.concat([self.data, data])
         
+        self.state = self.state.flatten()
         return self.state, reward, done, info
     
     def reset(self):
@@ -218,6 +219,7 @@ class fmi_gym(gym.Env):
             self.configure_fmu()
         action = [[0] * len(self.parameter['input_labels'])]
         self.state, _, _, _ = self.step(action, advance_fmu=False)   
+        self.state = self.state.flatten()
         return self.state
         
     def render(self):
