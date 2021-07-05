@@ -165,6 +165,7 @@ class fmi_gym(gym.Env):
             data = self.data
         
         # Parse inputs
+        action = np.reshape(action, (1, len(self.parameter['input_labels'])))
         action = pd.DataFrame(action, columns=self.parameter['input_labels'])
         data = pd.concat([data, action], axis=1)
         data.index = data['time'].values
