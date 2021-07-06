@@ -30,7 +30,7 @@ class fmi_gym(gym.Env):
         # Parse Configuration
         self.seed = self.parameter['seed']
         self.precision = eval('np.{}'.format(self.parameter['precision']))
-        self.parameter['fmu_observation_names'] = list(set(self.parameter['observation_names'][:-(len(self.parameter['forecast_cols']) * int(self.parameter['x']['agent']['setting']['forecast_hours']))]) \
+        self.parameter['fmu_observation_names'] = list(set(self.parameter['observation_names']) \
                                                        - set(self.parameter['external_observations'].keys()))        
         self.fmu_time = 0
         self.data = pd.DataFrame()
