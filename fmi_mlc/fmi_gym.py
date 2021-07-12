@@ -203,7 +203,7 @@ class fmi_gym(gym.Env):
                 self.data = data
             else:
                 self.data = pd.concat([self.data, data])
-        return self.state, reward, done, info
+        return self.state.flatten(), reward, done, info
     
     def reset(self):
         ''' reset environment '''
