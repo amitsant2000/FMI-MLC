@@ -91,8 +91,12 @@ class fmi_gym(gym.Env):
         if pyfmi != None:
             self.load_fmu = pyfmi            
         else:
-            from pyfmi import load_fmu
-            self.load_fmu = load_fmu
+            try:
+                from pyfmi import load_fmu
+                self.load_fmu = load_fmu
+            except Exception as e:
+                print('ERROR: The "pyfmi" package was not found. Please install.')
+                raise e
             
     def configure_fmu(self):
         '''
@@ -215,6 +219,7 @@ class fmi_gym(gym.Env):
         # Load FMU
         if not self.fmu_loaded and self.parameter['init_fmu']:
             self.configure_fmu()
+            self.data['time'] = self.fmu_time
         action = [[0] * len(self.parameter['input_labels'])]
         self.state, _, _, _ = self.step(action, advance_fmu=False)
         return self.state.flatten()
