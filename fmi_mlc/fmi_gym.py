@@ -203,8 +203,6 @@ class fmi_gym(gym.Env):
                 self.data = data
             else:
                 self.data = pd.concat([self.data, data])
-        
-        self.state = self.state.flatten()
         return self.state, reward, done, info
     
     def reset(self):
@@ -218,9 +216,8 @@ class fmi_gym(gym.Env):
         if not self.fmu_loaded and self.parameter['init_fmu']:
             self.configure_fmu()
         action = [[0] * len(self.parameter['input_labels'])]
-        self.state, _, _, _ = self.step(action, advance_fmu=False)   
-        self.state = self.state.flatten()
-        return self.state
+        self.state, _, _, _ = self.step(action, advance_fmu=False)
+        return self.state.flatten()
         
     def render(self):
         ''' render environment '''
