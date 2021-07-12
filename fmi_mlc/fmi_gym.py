@@ -78,7 +78,7 @@ class fmi_gym(gym.Env):
         if self.parameter['reset_on_init']:
             self.state = self.reset()
         else:
-            self.state = np.array([[np.nan]*len(self.parameter['observation_names'])]).flatten()      
+            self.state = np.array([[np.nan]*len(self.parameter['observation_names'])])      
         
     def setup_pyfmi(self, pyfmi):
         '''
